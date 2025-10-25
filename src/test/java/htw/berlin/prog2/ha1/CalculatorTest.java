@@ -92,7 +92,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display 0 when multiplying by 0")
-    void testMultiplyByZero(){
+    void testMultiplyByZero() {
         Calculator calc = new Calculator();
         calc.pressDigitKey(9);
         calc.pressBinaryOperationKey("x");
@@ -105,6 +105,31 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should repeat operation when equals is pressed multiple times")
+    void testRepeatedEquals() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(6);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+        assertEquals("12", calc.readScreen());
+    }
+
+    @Test
+    @DisplayName("should only clear screen on first clear press (CE behavior)")
+    void testClearScreen() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressClearKey();
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+        assertEquals("9", calc.readScreen());
+
+    }
 
 }
 
